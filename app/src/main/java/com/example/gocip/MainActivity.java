@@ -24,10 +24,9 @@ public class MainActivity extends AppCompatActivity {
         replacefragment(new Login());
 
     }
-    private void replacefragment(Fragment fragment){
+ void replacefragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // why does it not see it as a binding
         fragmentTransaction.replace(R.id.Login_Frame_layout , fragment);
         fragmentTransaction.commit();
     }

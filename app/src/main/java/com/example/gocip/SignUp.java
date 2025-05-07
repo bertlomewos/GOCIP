@@ -9,48 +9,42 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gocip.databinding.FragmentLoginBinding;
+import com.example.gocip.databinding.FragmentSignUpBinding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Login#newInstance} factory method to
+ * Use the {@link SignUp#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Login extends Fragment {
+public class SignUp extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    FragmentSignUpBinding binding;
 
-    FragmentLoginBinding binding;
+    Button BackBtn;
 
-    TextView signUp;
-    TextView ForgotPassBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(getLayoutInflater());
+        binding = FragmentSignUpBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        signUp = binding.SignUpTextBtn;
-        ForgotPassBtn = binding.forgotPass;
+        BackBtn = binding.Backbtn;
 
-        ForgotPassBtn.setOnClickListener(v ->{
-            Toast.makeText(getContext(), "FORGOT YOUR PASSWORD OH WELL CRY ABOUT IT", Toast.LENGTH_SHORT).show();
-        });
-        signUp.setOnClickListener(v ->{
+        BackBtn.setOnClickListener(v ->{
             Toast.makeText(getContext(), "SIGN UP TIME BABY", Toast.LENGTH_SHORT).show();
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.Login_Frame_layout, new SignUp());
+            transaction.replace(R.id.Login_Frame_layout, new Login());
             transaction.addToBackStack(null);
             transaction.commit();
         });
