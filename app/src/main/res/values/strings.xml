@@ -2,4 +2,5 @@
     <string name="app_name">GOCIP</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="let_s_sign_in">Let’s Sign In.!</string>
 </resources>

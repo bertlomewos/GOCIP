@@ -6,6 +6,9 @@ android {
     namespace = "com.example.gocip"
     compileSdk = 35
 
+    buildFeatures{
+        viewBinding = true
+    }
     defaultConfig {
         applicationId = "com.example.gocip"
         minSdk = 24
