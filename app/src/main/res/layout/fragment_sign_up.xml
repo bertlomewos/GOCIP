@@ -15,12 +15,14 @@
         android:src="@drawable/profilepic"
         app:layout_constraintBottom_toTopOf="@+id/ff2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.451"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.602" />
 
     <EditText
         android:id="@+id/ff"
+        android:paddingLeft="20dp"
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_marginBottom="36dp"
@@ -35,6 +37,7 @@
 
     <EditText
         android:id="@+id/ff2"
+        android:paddingLeft="20dp"
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_marginBottom="40dp"
@@ -49,6 +52,7 @@
 
     <EditText
         android:id="@+id/Email_input_field"
+        android:paddingLeft="20dp"
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_marginBottom="40dp"
@@ -63,6 +67,7 @@
 
     <EditText
         android:id="@+id/Pass_input_field"
+        android:paddingLeft="20dp"
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_marginBottom="36dp"
@@ -78,6 +83,7 @@
 
     <Spinner
         android:id="@+id/Gender_picker"
+        android:paddingLeft="20dp"
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_marginStart="158dp"
@@ -106,8 +112,10 @@
 
     <Button
         android:id="@+id/Backbtn"
-        android:layout_width="65dp"
-        android:layout_height="63dp"
+        android:layout_width="64dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
         android:background="#00FFFFFF"
         android:forceHasOverlappingRendering="false"
         android:foreground="@drawable/baseline_arrow_back_24"
