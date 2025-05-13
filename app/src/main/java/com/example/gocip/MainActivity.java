@@ -1,6 +1,7 @@
 package com.example.gocip;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +17,13 @@ import com.example.gocip.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
      ActivityMainBinding binding;
+     Button SignInBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replacefragment(new Login());
-
     }
  void replacefragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();

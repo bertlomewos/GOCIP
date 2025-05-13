@@ -7,7 +7,7 @@
         android:icon="@drawable/home"
         />
     <item
-        android:id="@+id/PostCourse"
+        android:id="@+id/post"
         android:title="@string/post"
         android:icon="@drawable/graduationcap"
         />

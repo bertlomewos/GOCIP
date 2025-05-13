@@ -1,5 +1,6 @@
 package com.example.gocip;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ public class Login extends Fragment {
     TextView signUp;
     TextView ForgotPassBtn;
 
+    Button SignInBtn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,12 +46,19 @@ public class Login extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         signUp = binding.SignUpTextBtn;
         ForgotPassBtn = binding.forgotPass;
+        SignInBtn = binding.SignInBtn;
+
+        SignInBtn.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), HomeActivity.class);
+            startActivity(intent);
+        });
 
         ForgotPassBtn.setOnClickListener(v ->{
             Toast.makeText(getContext(), "FORGOT YOUR PASSWORD OH WELL CRY ABOUT IT", Toast.LENGTH_SHORT).show();
         });
         signUp.setOnClickListener(v ->{
             Toast.makeText(getContext(), "SIGN UP TIME BABY", Toast.LENGTH_SHORT).show();
+
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.Login_Frame_layout, new SignUp());
