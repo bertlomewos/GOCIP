@@ -5,124 +5,117 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F3F7FD"
-    tools:context=".SignUp">
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="185dp"
-        android:layout_height="116dp"
-        android:src="@drawable/profilepic"
-        app:layout_constraintBottom_toTopOf="@+id/ff2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.451"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.602" />
-
-    <EditText
-        android:id="@+id/ff"
-        android:paddingLeft="20dp"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="36dp"
-        android:background="@drawable/inputbtnbg"
-        android:drawableLeft="@drawable/baseline_calendar_month_24"
-        android:hint=" Date of birth"
-        android:pointerIcon="top_right_diagonal_double_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/Email_input_field"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/ff2"
-        android:paddingLeft="20dp"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/inputbtnbg"
-        android:hint=" Full Name"
-        android:pointerIcon="top_right_diagonal_double_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/ff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <EditText
-        android:id="@+id/Email_input_field"
-        android:paddingLeft="20dp"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/inputbtnbg"
-        android:drawableLeft="@drawable/baseline_email_24"
-        android:hint=" Email"
-        android:pointerIcon="top_right_diagonal_double_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/Pass_input_field"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <EditText
-        android:id="@+id/Pass_input_field"
-        android:paddingLeft="20dp"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="36dp"
-        android:background="@drawable/inputbtnbg"
-        android:drawableLeft="@drawable/baseline_lock_24"
-        android:hint=" Password"
-        android:inputType="textPassword"
-        android:pointerIcon="top_right_diagonal_double_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/Gender_picker"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Spinner
-        android:id="@+id/Gender_picker"
-        android:paddingLeft="20dp"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="158dp"
-        android:layout_marginEnd="135dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/inputbtnbg"
-        android:entries="@array/Gender"
-        app:layout_constraintBottom_toTopOf="@+id/SignUp_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/SignUp_btn"
-        android:layout_width="333dp"
-        android:layout_height="68dp"
-        android:layout_marginBottom="60dp"
-        android:background="#00FFFFFF"
-        android:forceHasOverlappingRendering="false"
-        android:foreground="@drawable/signupbtn"
-        android:text="Button"
-        app:icon="@drawable/ic_launcher_foreground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    tools:context=".Activity.Login_SignUp.SignUp">
 
     <Button
         android:id="@+id/Backbtn"
-        android:layout_width="64dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="32dp"
-        android:background="#00FFFFFF"
-        android:forceHasOverlappingRendering="false"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:foreground="@drawable/baseline_arrow_back_24"
-        android:text="Button"
-        app:icon="@drawable/ic_launcher_foreground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/profilepic"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Backbtn" />
 
+    <EditText
+        android:id="@+id/ff2"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/inputbtnbg"
+        android:hint=" Full Name"
+        android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/ff"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/inputbtnbg"
+        android:drawableStart="@drawable/baseline_calendar_month_24"
+        android:drawablePadding="12dp"
+        android:hint=" Date of birth"
+        android:inputType="date"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ff2" />
+
+    <EditText
+        android:id="@+id/Email_input_field"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/inputbtnbg"
+        android:drawableStart="@drawable/baseline_email_24"
+        android:drawablePadding="12dp"
+        android:hint=" Email"
+        android:inputType="textEmailAddress"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ff" />
+
+    <EditText
+        android:id="@+id/Pass_input_field"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/inputbtnbg"
+        android:drawableStart="@drawable/baseline_lock_24"
+        android:drawablePadding="12dp"
+        android:hint=" Password"
+        android:inputType="textPassword"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Email_input_field" />
+
+    <Spinner
+        android:id="@+id/Gender_picker"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/inputbtnbg"
+        android:entries="@array/Gender"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Pass_input_field" />
+
+    <Button
+        android:id="@+id/SignUp_btn"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="Sign Up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Gender_picker"
+        app:layout_constraintVertical_bias="0.301" />
 </androidx.constraintlayout.widget.ConstraintLayout>

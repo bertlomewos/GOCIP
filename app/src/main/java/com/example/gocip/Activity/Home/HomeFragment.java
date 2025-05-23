@@ -1,4 +1,4 @@
-package com.example.gocip;
+package com.example.gocip.Activity.Home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.gocip.R;
 import com.example.gocip.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
@@ -93,7 +94,7 @@ public class HomeFragment extends Fragment {
         @Override
         public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.lession_item, null, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lession_item, parent, false);
             return new MyHolder(view);
         }
 
