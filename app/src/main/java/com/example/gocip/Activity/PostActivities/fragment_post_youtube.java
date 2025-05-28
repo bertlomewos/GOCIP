@@ -2,13 +2,17 @@ package com.example.gocip.Activity.PostActivities;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.gocip.R;
+import com.example.gocip.databinding.FragmentPostYoutubeBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,50 +21,60 @@ import com.example.gocip.R;
  */
 public class fragment_post_youtube extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentPostYoutubeBinding binding; // Declare binding variable
 
     public fragment_post_youtube() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_post_youtube.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static fragment_post_youtube newInstance(String param1, String param2) {
-        fragment_post_youtube fragment = new fragment_post_youtube();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment using ViewBinding
+        binding = FragmentPostYoutubeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Set up listeners or any initial logic here
+        binding.buttonSubmitYoutube.setOnClickListener(v -> {
+            submitPost();
+        });
+    }
+
+    // Public method to be called from Activity to submit
+    public void submitPost() {
+        String title = binding.editTextYoutubeTitle.getText().toString().trim();
+        String url = binding.editTextYoutubeUrl.getText().toString().trim();
+        String description = binding.editTextYoutubeDescription.getText().toString().trim();
+
+        if (title.isEmpty() || url.isEmpty() || description.isEmpty()) {
+            Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // TODO: Implement your submission logic (e.g., save to database, API call)
+        Toast.makeText(getContext(), "YouTube Lesson Submitted:\nTitle: " + title + "\nURL: " + url, Toast.LENGTH_LONG).show();
+        clearInputs(); // Optionally clear inputs after submission
+    }
+
+    // Public method to be called from Activity to clear inputs
+    public void clearInputs() {
+        if (binding != null) {
+            binding.editTextYoutubeTitle.setText("");
+            binding.editTextYoutubeUrl.setText("");
+            binding.editTextYoutubeDescription.setText("");
+            binding.editTextYoutubeTitle.requestFocus(); // Focus on the first field
         }
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post_youtube, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // Important to nullify the binding object in Fragments
     }
 }

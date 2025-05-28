@@ -1,5 +1,6 @@
 package com.example.gocip.Activity.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.gocip.Activity.Login_SignUp.ProfileFragment;
+import com.example.gocip.Activity.PostActivities.PostActivity;
 import com.example.gocip.R;
 import com.example.gocip.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,7 +36,8 @@ public class HomeActivity extends AppCompatActivity {
                 replacefragment(new ProfileFragment());
             } else if(item.getItemId() == R.id.post)
             {
-                replacefragment(new PostFragment());
+                Intent intent = new Intent(this, PostActivity.class);
+                startActivity(intent);
             }
             return true;
         });

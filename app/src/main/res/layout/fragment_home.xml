@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0F4FA"
-    tools:context=".Activity.Home.HomeFragment">
+    tools:context=".Activity.Home.HomeFragment"
+    android:exported="true"
+    android:windowSoftInputMode="adjustPan"
+    >
 
     <TextView
         android:id="@+id/textView"
