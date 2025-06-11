@@ -1,3 +1,66 @@
 <resources>
-    <string name="app_name">TIMERO</string>
+    <!-- App Name -->
+    <string name="app_name">Timero</string>
+
+    <!-- Common -->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone</string>
+    <string name="app_logo">App Logo</string>
+
+    <!-- Login Fragment -->
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+
+    <!-- Sign Up Fragment -->
+    <string name="create_account">Create Account</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
+
+    <!-- Main Activity -->
+    <string name="title_home">Home</string>
+    <string name="title_post">Post</string>
+    <string name="title_profile">Profile</string>
+    <string name="hot_topics">Hot Topics</string>
+    <string name="latest_topics">Latest Topics</string>
+
+    <!-- Post Activity -->
+    <string name="post_image">Post Image</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="post_type">Post Type</string>
+    <string name="next">Next</string>
+    <string name="upload_file">Upload File</string>
+    <string name="post">Post</string>
+    <string name="add_answer">Add Answer</string>
+    <string name="add_question">Add a Question</string>
+    <string-array name="post_types">
+        <item>Question</item>
+        <item>Document</item>
+        <item>Video</item>
+    </string-array>
+    <string-array name="file_upload_types">
+        <item>Video (MP4)</item>
+        <item>Document (PDF)</item>
+    </string-array>
+
+
+    <!-- Profile Activity -->
+    <string name="total_views">Total Views</string>
+    <string name="total_likes">Total Likes</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="my_posts">My Posts</string>
+    <string name="new_username">New Username</string>
+    <string name="new_phone_number">New Phone Number</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="save_changes">Save Changes</string>
+
+    <!-- Post Content -->
+    <string name="like">Like</string>
+    <string name="share">Share</string>
+    <string name="done">Done</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/question_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            tools:text="What is the capital of France?" />
+
+        <RadioGroup
+            android:id="@+id/answers_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RadioButton
+                android:id="@+id/answer_1_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Berlin" />
+
+            <RadioButton
+                android:id="@+id/answer_2_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Madrid" />
+
+            <RadioButton
+                android:id="@+id/answer_3_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Paris" />
+
+            <RadioButton
+                android:id="@+id/answer_4_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Rome" />
+        </RadioGroup>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
