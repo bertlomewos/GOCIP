@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.content.DocumentsFragment">
 
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdf_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/interaction_buttons_layout_doc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <com.github.barteksc.pdfviewer.PDFView-->
+<!--        android:id="@+id/pdf_view"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/interaction_buttons_layout_doc"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -44,8 +44,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:text="@string/like"
-            app:icon="@drawable/ic_like" />
+            android:text="@string/like" />
 
         <Button
             android:id="@+id/share_button_doc"
@@ -55,8 +54,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:text="@string/share"
-            app:icon="@drawable/ic_share" />
+            android:text="@string/share" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
