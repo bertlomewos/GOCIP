@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Example: Create and save a user
         UserEntity user = new UserEntity(
-            1,
+            0,
             "testuser",
             "test@example.com",
             "profile.jpg",
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Example: Create and save a post
         PostEntity post = new PostEntity(
-            1,
+            0,
             1, // userId
             "Test Post",
             "This is a test post content",
