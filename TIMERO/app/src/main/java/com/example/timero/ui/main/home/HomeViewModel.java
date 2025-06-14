@@ -17,7 +17,7 @@ public class HomeViewModel extends ViewModel {
     public HomeViewModel() {
         // Get the singleton instance of the repository
         postRepository = PostRepository.getInstance();
-        hotTopics = postRepository.hotTopics;
+        hotTopics = postRepository.latestTopics;
         latestTopics = postRepository.latestTopics;
     }
 }

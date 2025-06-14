@@ -31,7 +31,6 @@ public class Question implements Parcelable {
         this.answers = answers;
     }
 
-    // --- Parcelable Implementation ---
     protected Question(Parcel in) {
         questionText = in.readString();
         answers = in.createTypedArrayList(Answer.CREATOR);

@@ -37,10 +37,6 @@ public class PostViewModel extends ViewModel {
         _questions.setValue(initialQuestions);
     }
 
-    /**
-     * Creates a new Post object with all entered data and adds it to the repository.
-     * @param postType The type of post ("File" or "Question").
-     */
     public void createAndSavePost(String postType) {
         String newTitle = title.getValue() != null ? title.getValue() : "No Title";
         String newDescription = description.getValue() != null ? description.getValue() : "";
@@ -48,24 +44,20 @@ public class PostViewModel extends ViewModel {
 
         List<Question> questionData = postType.equals("Question") ? _questions.getValue() : null;
 
-        Post newPost = new Post(
-                UUID.randomUUID().toString(),
-                newTitle,
-                newDescription,
-                imageUriString,
-                postType,
-                0, // initial views
-                0,  // initial likes
-                questionData
-        );
-
-        repository.addNewPost(newPost);
-        _postCreated.setValue(true); // Signal that the post is created
+//        Post newPost = new Post(
+//                UUID.randomUUID().toString(),
+//                newTitle,
+//                newDescription,
+//                imageUriString,
+//                postType,
+//                0, // initial views
+//                0,  // initial likes
+//                questionData
+//        );
+//
+//        repository.addNewPost(newPost);
+//        _postCreated.setValue(true); // Signal that the post is created
     }
-
-    /**
-     * Resets the post creation event status.
-     */
     public void onPostCreationComplete() {
         _postCreated.setValue(false);
     }

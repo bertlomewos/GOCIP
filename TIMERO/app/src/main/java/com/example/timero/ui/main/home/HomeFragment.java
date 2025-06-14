@@ -14,12 +14,22 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.timero.R;
+import com.example.timero.api.RetrofitDatabase;
+import com.example.timero.api.postApi;
 import com.example.timero.databinding.FragmentHomeBinding;
 import com.example.timero.data.model.Post;
 import com.example.timero.ui.content.PostContentActivity;
+import com.example.timero.ui.main.MainActivity;
 import com.example.timero.ui.main.adapter.HotTopicsAdapter;
 import com.example.timero.ui.main.adapter.LatestTopicsAdapter;
 import com.example.timero.ui.main.postcollection.PostCollectionFragment;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
@@ -27,6 +37,7 @@ public class HomeFragment extends Fragment {
     private HotTopicsAdapter hotTopicsAdapter;
     private LatestTopicsAdapter latestTopicsAdapter;
     private FragmentHomeBinding binding;
+
 
     @Nullable
     @Override

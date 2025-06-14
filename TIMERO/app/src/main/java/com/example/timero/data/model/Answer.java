@@ -29,8 +29,6 @@ public class Answer implements Parcelable {
         isCorrect = correct;
     }
 
-
-    // --- Parcelable Implementation ---
     protected Answer(Parcel in) {
         answerText = in.readString();
         isCorrect = in.readByte() != 0;
