@@ -2,9 +2,15 @@ package com.example.timero.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.timero.data.local.QuestionListConverter;
 
 import java.util.List;
 
+@androidx.room.Entity(tableName = "posts")
 public class Post implements Parcelable {
 
     private String id;
@@ -14,7 +20,11 @@ public class Post implements Parcelable {
     private String postType; // "QUESTION", "DOCUMENT", "VIDEO"
     private int viewCount;
     private int likeCount;
+
+    @TypeConverters(QuestionListConverter.class)
     private List<Question> questions; // New field for questions
+
+    public Post() {}
 
     public Post(String id, String title, String description, String imageUrl, String postType, int viewCount, int likeCount, List<Question> questions) {
         this.id = id;

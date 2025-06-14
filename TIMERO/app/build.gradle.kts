@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
+
     // Default Android dependencies
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -45,6 +46,7 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.google.android.exoplayer:exoplayer:2.19.1")
     implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation(libs.room.common.jvm)
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     // --- Add Retrofit for networking ---
@@ -54,7 +56,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
 
+    //Room Database
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
 
+    implementation ("com.google.code.gson:gson:2.10.1")
     // Testing dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
