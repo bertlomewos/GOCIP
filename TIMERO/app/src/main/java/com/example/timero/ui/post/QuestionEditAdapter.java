@@ -10,7 +10,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.timero.R;
+import com.example.timero.databinding.ItemQuestionEditBinding;
 import com.example.timero.data.model.Answer;
 import com.example.timero.data.model.Question;
 import com.google.android.material.textfield.TextInputEditText;
@@ -40,8 +42,8 @@ public class QuestionEditAdapter extends RecyclerView.Adapter<QuestionEditAdapte
     @NonNull
     @Override
     public QuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question_edit, parent, false);
-        return new QuestionViewHolder(view, removeClickListener, addAnswerClickListener);
+        ItemQuestionEditBinding binding = ItemQuestionEditBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new QuestionViewHolder(binding, removeClickListener, addAnswerClickListener);
     }
 
     @Override
@@ -61,25 +63,17 @@ public class QuestionEditAdapter extends RecyclerView.Adapter<QuestionEditAdapte
     }
 
     static class QuestionViewHolder extends RecyclerView.ViewHolder {
-        private final TextInputEditText questionEditText;
-        private final LinearLayout answersContainer;
-        private final ImageButton removeButton;
-        private final Button addAnswerButton;
+        private final ItemQuestionEditBinding binding;
 
-        public QuestionViewHolder(@NonNull View itemView, OnRemoveClickListener removeClickListener, OnAddAnswerClickListener addAnswerClickListener) {
-            super(itemView);
-            questionEditText = itemView.findViewById(R.id.question_edit_text);
-            answersContainer = itemView.findViewById(R.id.answers_container);
-            removeButton = itemView.findViewById(R.id.remove_question_button);
-            addAnswerButton = itemView.findViewById(R.id.add_answer_button);
-
-            removeButton.setOnClickListener(v -> {
+        public QuestionViewHolder(@NonNull ItemQuestionEditBinding binding, OnRemoveClickListener removeClickListener, OnAddAnswerClickListener addAnswerClickListener) {
+            super(binding.getRoot());
+            this.binding = binding;
+            binding.removeQuestionButton.setOnClickListener(v -> {
                 if (getAdapterPosition() != RecyclerView.NO_POSITION) {
                     removeClickListener.onRemoveClicked(getAdapterPosition());
                 }
             });
-
-            addAnswerButton.setOnClickListener(v -> {
+            binding.addAnswerButton.setOnClickListener(v -> {
                 if (getAdapterPosition() != RecyclerView.NO_POSITION) {
                     addAnswerClickListener.onAddAnswerClicked(getAdapterPosition());
                 }
@@ -87,13 +81,10 @@ public class QuestionEditAdapter extends RecyclerView.Adapter<QuestionEditAdapte
         }
 
         public void bind(Question question) {
-            // Remove any existing text watcher to prevent saving to the wrong object
-            if (questionEditText.getTag() instanceof TextWatcher) {
-                questionEditText.removeTextChangedListener((TextWatcher) questionEditText.getTag());
+            if (binding.questionEditText.getTag() instanceof TextWatcher) {
+                binding.questionEditText.removeTextChangedListener((TextWatcher) binding.questionEditText.getTag());
             }
-            questionEditText.setText(question.getQuestionText());
-
-            // Add a new text watcher that updates the model
+            binding.questionEditText.setText(question.getQuestionText());
             TextWatcher questionWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -104,26 +95,19 @@ public class QuestionEditAdapter extends RecyclerView.Adapter<QuestionEditAdapte
                     question.setQuestionText(s.toString());
                 }
             };
-            questionEditText.addTextChangedListener(questionWatcher);
-            questionEditText.setTag(questionWatcher); // Tag the view with the watcher for removal later
-
-            // Dynamically add and manage answer fields
-            answersContainer.removeAllViews();
+            binding.questionEditText.addTextChangedListener(questionWatcher);
+            binding.questionEditText.setTag(questionWatcher);
+            binding.answersContainer.removeAllViews();
             LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
             for (int i = 0; i < question.getAnswers().size(); i++) {
                 final Answer currentAnswer = question.getAnswers().get(i);
-                TextInputLayout answerLayout = (TextInputLayout) inflater.inflate(R.layout.item_answer_edit, answersContainer, false);
+                TextInputLayout answerLayout = (TextInputLayout) inflater.inflate(R.layout.item_answer_edit, binding.answersContainer, false);
                 TextInputEditText answerEditText = answerLayout.findViewById(R.id.answer_edit_text);
-
                 answerLayout.setHint(i == 0 ? "Answer " + (i + 1) + " (Correct)" : "Answer " + (i + 1));
-
-                // Remove old watcher
                 if (answerEditText.getTag() instanceof TextWatcher) {
                     answerEditText.removeTextChangedListener((TextWatcher) answerEditText.getTag());
                 }
                 answerEditText.setText(currentAnswer.getAnswerText());
-
-                // Add new watcher to save text to the correct Answer object
                 TextWatcher answerWatcher = new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -136,8 +120,7 @@ public class QuestionEditAdapter extends RecyclerView.Adapter<QuestionEditAdapte
                 };
                 answerEditText.addTextChangedListener(answerWatcher);
                 answerEditText.setTag(answerWatcher);
-
-                answersContainer.addView(answerLayout);
+                binding.answersContainer.addView(answerLayout);
             }
         }
     }

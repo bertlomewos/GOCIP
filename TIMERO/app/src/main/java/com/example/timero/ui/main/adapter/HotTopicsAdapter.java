@@ -1,5 +1,6 @@
 package com.example.timero.ui.main.adapter;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import com.example.timero.R;
 import com.example.timero.data.model.Post;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class HotTopicsAdapter extends RecyclerView.Adapter<HotTopicsAdapter.HotTopicViewHolder> {
 
@@ -66,11 +66,27 @@ public class HotTopicsAdapter extends RecyclerView.Adapter<HotTopicsAdapter.HotT
             title.setText(post.getTitle());
             description.setText(post.getDescription());
 
-            // Use Glide to load the image
-            Glide.with(itemView.getContext())
-                    .load(post.getImageUrl())
-                    .centerCrop()
-                    .into(image);
+            String imageUrl = post.getImageUrl();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                // This is the fix: check if the URL is a local content URI or a web URL
+                if (imageUrl.startsWith("content://")) {
+                    // It's a local file URI from the picker
+                    Glide.with(itemView.getContext())
+                            .load(Uri.parse(imageUrl))
+                            .centerCrop()
+                            .into(image);
+                } else {
+                    // It's a web URL from our dummy data
+                    Glide.with(itemView.getContext())
+                            .load(imageUrl)
+                            .centerCrop()
+                            .into(image);
+                }
+            } else {
+                // Handle cases where there is no image
+                image.setImageResource(R.drawable.ic_upload_file); // Set a default placeholder
+            }
+
 
             itemView.setOnClickListener(v -> listener.onPostClick(post));
         }

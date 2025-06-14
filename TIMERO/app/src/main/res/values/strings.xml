@@ -37,7 +37,8 @@
     <string name="add_question">Add a Question</string>
     <string-array name="post_types">
         <item>Question</item>
-        <item>File</item>
+        <item>Video</item>
+        <item>Document</item>
     </string-array>
     <string-array name="file_upload_types">
         <item>Video (MP4)</item>

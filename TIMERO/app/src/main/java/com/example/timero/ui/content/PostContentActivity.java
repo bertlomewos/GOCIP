@@ -6,18 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.timero.R;
+import com.example.timero.databinding.ActivityPostContentBinding;
 import com.example.timero.data.model.Post;
 
 public class PostContentActivity extends AppCompatActivity {
 
     public static final String POST_EXTRA = "POST_EXTRA";
     private PostContentViewModel viewModel;
+    private ActivityPostContentBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_content);
+        binding = ActivityPostContentBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(PostContentViewModel.class);
 
@@ -29,7 +31,6 @@ public class PostContentActivity extends AppCompatActivity {
             return;
         }
 
-        // Set the post in the shared ViewModel
         viewModel.setSelectedPost(post);
 
         if (savedInstanceState == null) {
@@ -40,7 +41,7 @@ public class PostContentActivity extends AppCompatActivity {
                 contentFragment = new QuestionsFragment();
             } else if ("VIDEO".equalsIgnoreCase(postType)) {
                 contentFragment = new VideoFragment();
-            } else if ("DOCUMENT".equalsIgnoreCase(postType)) {
+            } else if ("DOCUMENT".equalsIgnoreCase(postType) || "FILE".equalsIgnoreCase(postType)) {
                 contentFragment = new DocumentsFragment();
             } else {
                 Toast.makeText(this, "Unknown post type: " + postType, Toast.LENGTH_SHORT).show();
@@ -55,7 +56,7 @@ public class PostContentActivity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         if (fragment != null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.post_content_frame_layout, fragment);
+            transaction.replace(binding.postContentFrameLayout.getId(), fragment);
             transaction.commit();
         }
     }

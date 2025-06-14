@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.timero.R;
+import com.example.timero.databinding.ActivityMainBinding;
 import com.example.timero.ui.main.home.HomeFragment;
 import com.example.timero.ui.post.PostActivity;
 import com.example.timero.ui.profile.ProfileActivity;
@@ -14,17 +15,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnItemSelectedListener(navListener);
-
-        // Load the default fragment
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.bottomNavigation.setOnItemSelectedListener(navListener);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame_layout,
+            getSupportFragmentManager().beginTransaction().replace(binding.mainFrameLayout.getId(),
                     new HomeFragment()).commit();
         }
     }
@@ -39,13 +39,11 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(selectedFragment);
                     return true;
                 } else if (itemId == R.id.navigation_post) {
-                    // Start PostActivity instead of loading a fragment
                     startActivity(new Intent(MainActivity.this, PostActivity.class));
-                    return false; // Return false so the item is not selected
+                    return false;
                 } else if (itemId == R.id.navigation_profile) {
-                    // Start ProfileActivity instead of loading a fragment
                     startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                    return false; // Return false so the item is not selected
+                    return false;
                 }
 
                 return false;
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         if (fragment != null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_frame_layout, fragment);
+            transaction.replace(binding.mainFrameLayout.getId(), fragment);
             transaction.commit();
         }
     }

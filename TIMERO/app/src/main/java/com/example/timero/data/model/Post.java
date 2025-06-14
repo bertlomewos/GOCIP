@@ -37,6 +37,16 @@ public class Post implements Parcelable {
     public int getLikeCount() { return likeCount; }
     public List<Question> getQuestions() { return questions; }
 
+    // Setters
+    public void setId(String id) { this.id = id; }
+    public void setTitle(String title) { this.title = title; }
+    public void setDescription(String description) { this.description = description; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setPostType(String postType) { this.postType = postType; }
+    public void setViewCount(int viewCount) { this.viewCount = viewCount; }
+    public void setLikeCount(int likeCount) { this.likeCount = likeCount; } // This was the missing method
+    public void setQuestions(List<Question> questions) { this.questions = questions; }
+
 
     // Parcelable Implementation
     protected Post(Parcel in) {

@@ -1,5 +1,6 @@
 package com.example.timero.ui.content;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,52 +8,57 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.example.timero.R;
+import androidx.lifecycle.ViewModelProvider;
+import com.example.timero.databinding.FragmentVideoBinding;
+import com.example.timero.data.model.Post;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.ui.PlayerView;
 
 public class VideoFragment extends Fragment {
 
-    private PlayerView playerView;
+    private FragmentVideoBinding binding;
     private ExoPlayer player;
+    private PostContentViewModel viewModel;
+    private String videoUrl;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_video, container, false);
+        binding = FragmentVideoBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        playerView = view.findViewById(R.id.video_view);
+        viewModel = new ViewModelProvider(requireActivity()).get(PostContentViewModel.class);
+        Post currentPost = viewModel.selectedPost.getValue();
+        if (currentPost != null && "VIDEO".equalsIgnoreCase(currentPost.getPostType())) {
+            videoUrl = currentPost.getImageUrl();
+        }
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        initializePlayer();
+    public void onResume() {
+        super.onResume();
+        if (videoUrl != null && !videoUrl.isEmpty()) {
+            initializePlayer();
+        }
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         releasePlayer();
     }
 
     private void initializePlayer() {
         player = new ExoPlayer.Builder(requireContext()).build();
-        playerView.setPlayer(player);
-
-        // This is a sample video URL for testing.
-        // In a real app, you would get this from the Post object.
-        String videoUrl = "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+        binding.videoView.setPlayer(player);
         MediaItem mediaItem = MediaItem.fromUri(videoUrl);
-
         player.setMediaItem(mediaItem);
+        player.setPlayWhenReady(true);
         player.prepare();
-        player.play();
     }
 
     private void releasePlayer() {

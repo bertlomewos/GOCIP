@@ -66,6 +66,18 @@
             app:layout_constraintTop_toBottomOf="@+id/latest_topics_title"
             tools:listitem="@layout/item_latest_topic"
             tools:itemCount="4"/>
+        <!-- Example of how emptyListMessage would be defined in fragment_home.xml -->
+        <TextView
+            android:id="@+id/emptyListMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading posts..."
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
