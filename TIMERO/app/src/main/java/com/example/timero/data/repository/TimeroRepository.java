@@ -32,7 +32,10 @@ public class TimeroRepository {
         postDao = database.postDao();
         questionDao = database.questionDao();
         answerDao = database.answerDao();
-        executorService = Executors.newFixedThreadPool(4);
+        // Use a single-thread executor to ensure database operations execute sequentially.
+        // This prevents race conditions such as posting before its parent user is saved, which
+        // would violate foreign-key constraints and cause inserts to silently fail.
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     // User operations
