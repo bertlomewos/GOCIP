@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey;
                        onDelete = ForeignKey.CASCADE)
         })
 public class QuestionEntity {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private int postId;
     private int userId;

@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
                                 childColumns = "userId",
                                 onDelete = ForeignKey.CASCADE))
 public class PostEntity {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private int userId;
     private String title;
