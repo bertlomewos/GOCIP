@@ -46,8 +46,17 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.google.android.exoplayer:exoplayer:2.19.1")
     implementation("com.github.bumptech.glide:glide:4.12.0")
-    implementation(libs.room.common.jvm)
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+
+    // Room Database
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    // Lifecycle components
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-livedata:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.7.0")
 
     // --- Add Retrofit for networking ---
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -56,11 +65,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
 
-    //Room Database
-    implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
-
-    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.code.gson:gson:2.10.1")
+    
     // Testing dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

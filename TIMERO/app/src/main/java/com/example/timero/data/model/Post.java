@@ -6,7 +6,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.timero.data.local.QuestionListConverter;
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class Post implements Parcelable {
     private int viewCount;
     private int likeCount;
 
-    @TypeConverters(QuestionListConverter.class)
     private List<Question> questions; // New field for questions
 
     public Post() {}
