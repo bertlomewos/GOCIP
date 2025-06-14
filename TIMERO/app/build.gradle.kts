@@ -35,7 +35,6 @@ android {
 }
 
 dependencies {
-
     // Default Android dependencies
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -57,13 +56,14 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata:2.7.0")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
 
-    // --- Add Retrofit for networking ---
+    // Retrofit for networking
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
 
     implementation("com.google.code.gson:gson:2.10.1")
     
