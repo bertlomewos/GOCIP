@@ -1,13 +1,17 @@
 package com.example.timero.ui.post;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.timero.R;
+import com.example.timero.data.model.Answer;
 import com.example.timero.data.model.Question;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -17,12 +21,27 @@ import java.util.List;
 public class QuestionEditAdapter extends RecyclerView.Adapter<QuestionEditAdapter.QuestionViewHolder> {
 
     private List<Question> questions = new ArrayList<>();
+    private final OnRemoveClickListener removeClickListener;
+    private final OnAddAnswerClickListener addAnswerClickListener;
+
+    public interface OnRemoveClickListener {
+        void onRemoveClicked(int position);
+    }
+
+    public interface OnAddAnswerClickListener {
+        void onAddAnswerClicked(int position);
+    }
+
+    public QuestionEditAdapter(OnRemoveClickListener removeClickListener, OnAddAnswerClickListener addAnswerClickListener) {
+        this.removeClickListener = removeClickListener;
+        this.addAnswerClickListener = addAnswerClickListener;
+    }
 
     @NonNull
     @Override
     public QuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question_edit, parent, false);
-        return new QuestionViewHolder(view);
+        return new QuestionViewHolder(view, removeClickListener, addAnswerClickListener);
     }
 
     @Override
@@ -38,36 +57,86 @@ public class QuestionEditAdapter extends RecyclerView.Adapter<QuestionEditAdapte
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
-        notifyDataSetChanged(); // In a real app, use DiffUtil for better performance
+        notifyDataSetChanged();
     }
 
     static class QuestionViewHolder extends RecyclerView.ViewHolder {
         private final TextInputEditText questionEditText;
         private final LinearLayout answersContainer;
+        private final ImageButton removeButton;
+        private final Button addAnswerButton;
 
-        public QuestionViewHolder(@NonNull View itemView) {
+        public QuestionViewHolder(@NonNull View itemView, OnRemoveClickListener removeClickListener, OnAddAnswerClickListener addAnswerClickListener) {
             super(itemView);
             questionEditText = itemView.findViewById(R.id.question_edit_text);
             answersContainer = itemView.findViewById(R.id.answers_container);
+            removeButton = itemView.findViewById(R.id.remove_question_button);
+            addAnswerButton = itemView.findViewById(R.id.add_answer_button);
+
+            removeButton.setOnClickListener(v -> {
+                if (getAdapterPosition() != RecyclerView.NO_POSITION) {
+                    removeClickListener.onRemoveClicked(getAdapterPosition());
+                }
+            });
+
+            addAnswerButton.setOnClickListener(v -> {
+                if (getAdapterPosition() != RecyclerView.NO_POSITION) {
+                    addAnswerClickListener.onAddAnswerClicked(getAdapterPosition());
+                }
+            });
         }
 
         public void bind(Question question) {
+            // Remove any existing text watcher to prevent saving to the wrong object
+            if (questionEditText.getTag() instanceof TextWatcher) {
+                questionEditText.removeTextChangedListener((TextWatcher) questionEditText.getTag());
+            }
             questionEditText.setText(question.getQuestionText());
 
-            // Dynamically add answer fields
-            answersContainer.removeAllViews(); // Clear old views first
+            // Add a new text watcher that updates the model
+            TextWatcher questionWatcher = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                @Override
+                public void afterTextChanged(Editable s) {
+                    question.setQuestionText(s.toString());
+                }
+            };
+            questionEditText.addTextChangedListener(questionWatcher);
+            questionEditText.setTag(questionWatcher); // Tag the view with the watcher for removal later
+
+            // Dynamically add and manage answer fields
+            answersContainer.removeAllViews();
             LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
             for (int i = 0; i < question.getAnswers().size(); i++) {
+                final Answer currentAnswer = question.getAnswers().get(i);
                 TextInputLayout answerLayout = (TextInputLayout) inflater.inflate(R.layout.item_answer_edit, answersContainer, false);
                 TextInputEditText answerEditText = answerLayout.findViewById(R.id.answer_edit_text);
 
-                if (i == 0) {
-                    answerLayout.setHint("Answer " + (i + 1) + " (Correct)");
-                } else {
-                    answerLayout.setHint("Answer " + (i + 1));
-                }
+                answerLayout.setHint(i == 0 ? "Answer " + (i + 1) + " (Correct)" : "Answer " + (i + 1));
 
-                answerEditText.setText(question.getAnswers().get(i).getAnswerText());
+                // Remove old watcher
+                if (answerEditText.getTag() instanceof TextWatcher) {
+                    answerEditText.removeTextChangedListener((TextWatcher) answerEditText.getTag());
+                }
+                answerEditText.setText(currentAnswer.getAnswerText());
+
+                // Add new watcher to save text to the correct Answer object
+                TextWatcher answerWatcher = new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        currentAnswer.setAnswerText(s.toString());
+                    }
+                };
+                answerEditText.addTextChangedListener(answerWatcher);
+                answerEditText.setTag(answerWatcher);
+
                 answersContainer.addView(answerLayout);
             }
         }

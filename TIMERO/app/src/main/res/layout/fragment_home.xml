@@ -45,6 +45,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hot_topics_recycler_view" />
 
+        <Button
+            android:id="@+id/more_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/more"
+            app:layout_constraintBaseline_toBaselineOf="@+id/latest_topics_title"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/latest_topics_recycler_view"
             android:layout_width="0dp"

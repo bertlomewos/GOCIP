@@ -1,66 +1,78 @@
 package com.example.timero.ui.content;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timero.R;
+import com.example.timero.data.model.Post;
+import com.example.timero.ui.content.adapter.QuestionViewAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link QuestionsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class QuestionsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private PostContentViewModel viewModel;
+    private RecyclerView recyclerView;
+    private QuestionViewAdapter adapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public QuestionsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment QuestionsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static QuestionsFragment newInstance(String param1, String param2) {
-        QuestionsFragment fragment = new QuestionsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_questions, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Get the shared ViewModel from the parent Activity
+        viewModel = new ViewModelProvider(requireActivity()).get(PostContentViewModel.class);
+
+        recyclerView = view.findViewById(R.id.questions_view_recycler);
+        Button doneButton = view.findViewById(R.id.done_button);
+
+        observeViewModel();
+
+        doneButton.setOnClickListener(v -> {
+            if (adapter != null) {
+                int score = adapter.calculateScore();
+                int totalQuestions = adapter.getItemCount();
+                showScoreDialog(score, totalQuestions);
+            }
+        });
+    }
+
+    private void observeViewModel() {
+        viewModel.selectedPost.observe(getViewLifecycleOwner(), post -> {
+            if (post != null && post.getQuestions() != null && !post.getQuestions().isEmpty()) {
+                setupRecyclerView(post);
+            } else {
+                Toast.makeText(getContext(), "No questions found for this post.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupRecyclerView(Post post) {
+        adapter = new QuestionViewAdapter(post.getQuestions());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void showScoreDialog(int score, int total) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Quiz Complete!")
+                .setMessage("You scored " + score + " out of " + total)
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

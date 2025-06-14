@@ -15,11 +15,12 @@ public class PostCollectionViewModel extends ViewModel {
     public void loadPostsForTopic(String topicId) {
         // In a real app, you would fetch this from a repository based on the topicId
         List<Post> postList = new ArrayList<>();
-        postList.add(new Post("10", "Advanced Coroutines", "Exploring channels and flows.", "url", "DOCUMENT", 560, 110));
-        postList.add(new Post("11", "Testing ViewModels", "Best practices for unit testing.", "url", "VIDEO", 830, 150));
-        postList.add(new Post("12", "Dependency Injection with Hilt", "Getting started with Hilt.", "url", "DOCUMENT", 1200, 250));
-        postList.add(new Post("13", "Navigation Component Deep Dive", "Nested graphs and custom transitions.", "url", "QUESTION", 780, 90));
-        postList.add(new Post("14", "Building Custom Views", "How to create your own views.", "url", "VIDEO", 950, 180));
+        // Updated all Post constructor calls to include the 8th argument (questions list)
+        postList.add(new Post("10", "Advanced Coroutines", "Exploring channels and flows.", "url", "DOCUMENT", 560, 110, null));
+        postList.add(new Post("11", "Testing ViewModels", "Best practices for unit testing.", "url", "VIDEO", 830, 150, null));
+        postList.add(new Post("12", "Dependency Injection with Hilt", "Getting started with Hilt.", "url", "DOCUMENT", 1200, 250, null));
+        postList.add(new Post("13", "Navigation Component Deep Dive", "Nested graphs and custom transitions.", "url", "QUESTION", 780, 90, new ArrayList<>()));
+        postList.add(new Post("14", "Building Custom Views", "How to create your own views.", "url", "VIDEO", 950, 180, null));
         _posts.setValue(postList);
     }
 }

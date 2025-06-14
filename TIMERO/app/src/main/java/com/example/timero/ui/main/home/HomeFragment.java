@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.example.timero.data.model.Post;
 import com.example.timero.ui.content.PostContentActivity;
 import com.example.timero.ui.main.adapter.HotTopicsAdapter;
 import com.example.timero.ui.main.adapter.LatestTopicsAdapter;
+import com.example.timero.ui.main.postcollection.PostCollectionFragment;
 
 public class HomeFragment extends Fragment {
 
@@ -38,33 +40,39 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        // Find and set up the new "More" button
+        Button moreButton = view.findViewById(R.id.more_button);
+        moreButton.setOnClickListener(v -> {
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.main_frame_layout, new PostCollectionFragment())
+                    .addToBackStack(null) // Allows the user to navigate back
+                    .commit();
+        });
+
         setupHotTopicsRecyclerView(view);
         setupLatestTopicsRecyclerView(view);
         observeViewModel();
     }
 
-    /**
-     * Handles clicks on any post from either RecyclerView.
-     * @param post The post object that was clicked.
-     */
     private void onPostClicked(Post post) {
         Toast.makeText(getContext(), "Opening: " + post.getTitle(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), PostContentActivity.class);
-        intent.putExtra("POST_EXTRA", post); // We pass the clicked post object
+        intent.putExtra("POST_EXTRA", post);
         startActivity(intent);
     }
 
     private void setupHotTopicsRecyclerView(View view) {
         RecyclerView hotTopicsRecyclerView = view.findViewById(R.id.hot_topics_recycler_view);
         hotTopicsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        hotTopicsAdapter = new HotTopicsAdapter(this::onPostClicked); // Pass the click handler method
+        hotTopicsAdapter = new HotTopicsAdapter(this::onPostClicked);
         hotTopicsRecyclerView.setAdapter(hotTopicsAdapter);
     }
 
     private void setupLatestTopicsRecyclerView(View view) {
         RecyclerView latestTopicsRecyclerView = view.findViewById(R.id.latest_topics_recycler_view);
         latestTopicsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        latestTopicsAdapter = new LatestTopicsAdapter(this::onPostClicked); // Pass the click handler method
+        latestTopicsAdapter = new LatestTopicsAdapter(this::onPostClicked);
         latestTopicsRecyclerView.setAdapter(latestTopicsAdapter);
     }
 

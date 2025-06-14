@@ -3,9 +3,11 @@ package com.example.timero.ui.profile.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.example.timero.R;
 import com.example.timero.data.model.Post;
 import java.util.ArrayList;
@@ -17,12 +19,10 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostVi
     private List<Post> posts = new ArrayList<>();
     private final OnPostClickListener onPostClickListener;
 
-    // 1. Interface for handling clicks
     public interface OnPostClickListener {
         void onPostClick(Post post);
     }
 
-    // 2. Constructor that accepts the click listener from the fragment
     public MyPostsAdapter(OnPostClickListener onPostClickListener) {
         this.onPostClickListener = onPostClickListener;
     }
@@ -37,7 +37,6 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostVi
     @Override
     public void onBindViewHolder(@NonNull MyPostViewHolder holder, int position) {
         Post currentPost = posts.get(position);
-        // 3. Pass the post and listener to the ViewHolder to be bound
         holder.bind(currentPost, onPostClickListener);
     }
 
@@ -53,15 +52,23 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostVi
 
     static class MyPostViewHolder extends RecyclerView.ViewHolder {
         private final TextView viewCountText;
+        private final ImageView image;
 
         public MyPostViewHolder(@NonNull View itemView) {
             super(itemView);
             viewCountText = itemView.findViewById(R.id.view_count_text);
+            image = itemView.findViewById(R.id.my_post_image);
         }
 
-        // 4. Bind method sets data and attaches the click listener
         public void bind(final Post post, final OnPostClickListener listener) {
             viewCountText.setText(String.format(Locale.US, "%d", post.getViewCount()));
+
+            // Use Glide to load the image from the URL
+            Glide.with(itemView.getContext())
+                    .load(post.getImageUrl())
+                    .centerCrop()
+                    .into(image);
+
             itemView.setOnClickListener(v -> listener.onPostClick(post));
         }
     }

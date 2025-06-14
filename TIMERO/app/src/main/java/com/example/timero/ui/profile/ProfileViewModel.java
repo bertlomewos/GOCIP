@@ -4,18 +4,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.timero.data.model.Post;
-import com.example.timero.data.model.User; // Import the User model
+import com.example.timero.data.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileViewModel extends ViewModel {
 
-    // LiveData for the User's profile information
     private final MutableLiveData<User> _user = new MutableLiveData<>();
     public LiveData<User> user = _user;
 
-    // LiveData for the list of posts by the user
     private final MutableLiveData<List<Post>> _myPosts = new MutableLiveData<>();
     public LiveData<List<Post>> myPosts = _myPosts;
 
@@ -24,17 +22,15 @@ public class ProfileViewModel extends ViewModel {
     }
 
     private void loadProfileData() {
-        // --- This is the missing part ---
-        // Create a dummy user and set its value
         User currentUser = new User("SampleUser", "1.2M", "500K", "url_to_profile_pic");
         _user.setValue(currentUser);
-        // --------------------------------
 
         // Load the user's posts
         List<Post> postList = new ArrayList<>();
-        postList.add(new Post("20", "My First Post", "", "url", "DOCUMENT", 102, 15));
-        postList.add(new Post("21", "My Second Post", "", "url", "VIDEO", 205, 30));
-        postList.add(new Post("22", "My Third Post", "", "url", "QUESTION", 510, 80));
+        // Updated all Post constructor calls to include the 8th argument (questions list)
+        postList.add(new Post("20", "My First Post", "", "url", "DOCUMENT", 102, 15, null));
+        postList.add(new Post("21", "My Second Post", "", "url", "VIDEO", 205, 30, null));
+        postList.add(new Post("22", "My Third Post", "", "url", "QUESTION", 510, 80, new ArrayList<>()));
         _myPosts.setValue(postList);
     }
 }

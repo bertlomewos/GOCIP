@@ -13,14 +13,15 @@
 
         <ImageView
             android:id="@+id/post_image_preview"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
             android:background="@color/white"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/post_image"/>
+            android:contentDescription="@string/post_image"
+            android:src="@drawable/ic_upload_file"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/title_input_layout"

@@ -40,8 +40,11 @@ dependencies {
 
     // Third-party libraries
     implementation("de.hdodenhof:circleimageview:3.1.0")
-    // implementation("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1") // <-- I have removed this line to fix the build
     implementation("com.google.android.exoplayer:exoplayer:2.19.1")
+
+    // Glide for image loading
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     // Testing dependencies
     testImplementation(libs.junit)

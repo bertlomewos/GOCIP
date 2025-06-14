@@ -6,19 +6,32 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
     app:cardCornerRadius="8dp"
-    app:strokeColor="?attr/colorOutline"
+    app:strokeColor="@color/stroke_color"
     app:strokeWidth="1dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/remove_question_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Question">
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Remove Question"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/question_text_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:hint="Question"
+            app:layout_constraintEnd_toStartOf="@id/remove_question_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/question_edit_text"
@@ -27,13 +40,14 @@
                 android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Placeholder for answers -->
+
         <LinearLayout
             android:id="@+id/answers_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/question_text_input_layout">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -59,7 +73,6 @@
 
         </LinearLayout>
 
-
         <Button
             android:id="@+id/add_answer_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -67,7 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="8dp"
-            android:text="@string/add_answer" />
-    </LinearLayout>
+            android:text="@string/add_answer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/answers_container" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
-

@@ -3,15 +3,20 @@ package com.example.timero.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Post implements Parcelable{    private String id;
+import java.util.List;
+
+public class Post implements Parcelable {
+
+    private String id;
     private String title;
     private String description;
     private String imageUrl;
     private String postType; // "QUESTION", "DOCUMENT", "VIDEO"
     private int viewCount;
     private int likeCount;
+    private List<Question> questions; // New field for questions
 
-    public Post(String id, String title, String description, String imageUrl, String postType, int viewCount, int likeCount) {
+    public Post(String id, String title, String description, String imageUrl, String postType, int viewCount, int likeCount, List<Question> questions) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -19,36 +24,19 @@ public class Post implements Parcelable{    private String id;
         this.postType = postType;
         this.viewCount = viewCount;
         this.likeCount = likeCount;
+        this.questions = questions;
     }
 
     // Getters
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public String getTitle() { return title; }
+    public String getDescription() { return description; }
+    public String getImageUrl() { return imageUrl; }
+    public String getPostType() { return postType; }
+    public int getViewCount() { return viewCount; }
+    public int getLikeCount() { return likeCount; }
+    public List<Question> getQuestions() { return questions; }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public String getPostType() {
-        return postType;
-    }
-
-    public int getViewCount() {
-        return viewCount;
-    }
-
-    public int getLikeCount() {
-        return likeCount;
-    }
 
     // Parcelable Implementation
     protected Post(Parcel in) {
@@ -59,6 +47,24 @@ public class Post implements Parcelable{    private String id;
         postType = in.readString();
         viewCount = in.readInt();
         likeCount = in.readInt();
+        questions = in.createTypedArrayList(Question.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(imageUrl);
+        dest.writeString(postType);
+        dest.writeInt(viewCount);
+        dest.writeInt(likeCount);
+        dest.writeTypedList(questions);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {
@@ -72,21 +78,4 @@ public class Post implements Parcelable{    private String id;
             return new Post[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(title);
-        dest.writeString(description);
-        dest.writeString(imageUrl);
-        dest.writeString(postType);
-        dest.writeInt(viewCount);
-        dest.writeInt(likeCount);
-    }
-
 }

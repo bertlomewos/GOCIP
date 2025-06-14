@@ -2,22 +2,24 @@ package com.example.timero.ui.content;
 
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
+import androidx.lifecycle.ViewModelProvider;
 import com.example.timero.R;
 import com.example.timero.data.model.Post;
 
 public class PostContentActivity extends AppCompatActivity {
 
     public static final String POST_EXTRA = "POST_EXTRA";
+    private PostContentViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_content);
+
+        viewModel = new ViewModelProvider(this).get(PostContentViewModel.class);
 
         Post post = getIntent().getParcelableExtra(POST_EXTRA);
 
@@ -26,6 +28,9 @@ public class PostContentActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        // Set the post in the shared ViewModel
+        viewModel.setSelectedPost(post);
 
         if (savedInstanceState == null) {
             Fragment contentFragment;
@@ -38,19 +43,19 @@ public class PostContentActivity extends AppCompatActivity {
             } else if ("DOCUMENT".equalsIgnoreCase(postType)) {
                 contentFragment = new DocumentsFragment();
             } else {
-                Toast.makeText(this, "Unknown post type.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Unknown post type: " + postType, Toast.LENGTH_SHORT).show();
                 finish();
                 return;
             }
 
-            // Pass the post object to the fragment
-            Bundle args = new Bundle();
-            args.putParcelable(POST_EXTRA, post);
-            contentFragment.setArguments(args);
+            loadFragment(contentFragment);
+        }
+    }
 
-            // Load the fragment
+    private void loadFragment(Fragment fragment) {
+        if (fragment != null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.post_content_frame_layout, contentFragment);
+            transaction.replace(R.id.post_content_frame_layout, fragment);
             transaction.commit();
         }
     }
